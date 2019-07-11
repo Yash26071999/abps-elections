@@ -81,11 +81,10 @@ public class results extends javax.swing.JFrame {
             
             if (!candidateName.equals("All Candidates")){
                 isSearchingCandidate = true;
-                candidateSql = "voted_girl = '"+candidateName+"' or voted_boy = '" + candidateName +  "'";
+                candidateSql = "(voted_girl = '"+candidateName+"' or voted_boy = '" + candidateName +  "')";
             }
             
             String startSql = "SELECT * FROM votes";
-            String endSql = "LIMIT " + this.limit + ", 100;";
             
             if (isSearchingClass && !isSearchingCandidate){
                 midSql = "WHERE "+classSql;
@@ -95,7 +94,7 @@ public class results extends javax.swing.JFrame {
                 midSql = "WHERE "+classSql+" AND "+candidateSql;
             }
             
-            String sql = startSql + " " + midSql + " " + endSql;
+            String sql = startSql + " " + midSql;
             
             this.results = stmt.executeQuery(sql);
             
